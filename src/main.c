@@ -22,6 +22,7 @@ static void sys_exist(int code){
         ::"a" (60L) , "D" ((long)code)
         : "rcx" ,"r11" ,"memory"
     );
+    __builtin_unreachable();
 
 }
 
