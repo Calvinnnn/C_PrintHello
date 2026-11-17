@@ -18,6 +18,10 @@ static long sys_write(int fd , void *buff ,unsigned long bytes){
 __attribute__((noreturn));
 
 static void sys_exist(int code){
+    __asm__ volatile("syscall"
+        ::"a" (60L) , "D" ((long)code)
+        : "rcx" ,"r11" ,"memory"
+    );
 
 }
 
