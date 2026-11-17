@@ -1,7 +1,7 @@
 
 
 
-static long sys_write(int fd , void *buff ,unsigned long bytes){
+static long sys_write(int fd , const void *buff ,unsigned long bytes){
     long ret;
     __asm__ volatile("syscall"
         : "=a" (ret)
@@ -15,9 +15,9 @@ static long sys_write(int fd , void *buff ,unsigned long bytes){
 }
 
 
-__attribute__((noreturn));
+__attribute__((noreturn))
 
-static void sys_exist(int code){
+static void sys_exit(int code){
     __asm__ volatile("syscall"
         ::"a" (60L) , "D" ((long)code)
         : "rcx" ,"r11" ,"memory"
@@ -31,7 +31,7 @@ static void sys_exist(int code){
 
 void _start(void){
     static const char msg[] = "hello world\n";
-    sys_write(1,msg, sizeof(msg-1));
+    sys_write(1,msg, sizeof msg-1);
     sys_exit(0);
 
 }
